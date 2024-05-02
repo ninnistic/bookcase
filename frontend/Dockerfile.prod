@@ -1,0 +1,45 @@
+# Start a new Node.js docker container for building
+FROM node:20-alpine AS build
+
+# Inside of a container, the working directory is /app
+WORKDIR /app 
+
+# Copy files from repo to docker container
+COPY package.json yarn.lock ./
+
+# Install dependencies
+RUN yarn install --prod
+
+# Copy all files from repo to docker container
+COPY . .
+
+# Build the app
+RUN yarn build 
+
+# 2 stages
+# Start a new Node.js docker container for running in production
+FROM node:20-alpine
+
+# Inside of a container, the working directory is /app
+WORKDIR /app
+
+# Copy files from the build container to prod container
+COPY --from=build /app/package.json ./
+COPY --from=build /app/yarn.lock ./
+COPY --from=build /app/.next/standalone ./
+COPY --from=build /app/.next/static ./next/static
+COPY --from=build /app/public ./public
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/next.config.mjs ./
+
+# Expose port 3000 (Next.js is going to run on port 3000)
+EXPOSE 3000
+
+# Uses a node-user not root for security reasons
+USER node
+
+# Start the app
+CMD ["yarn","run","start"]
+
+
+

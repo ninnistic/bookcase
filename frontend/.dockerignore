@@ -1,0 +1,7 @@
+# .tmp/
+# .cache/
+# .git/
+# .env
+# .next/
+# build/
+# node_modules/
