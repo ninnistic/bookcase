@@ -20,6 +20,6 @@ jobs:
           cache: yarn
           cache-dependency-path: "strapi/yarn.lock"
       - name: Install Dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
       - name: Production Build
         run: yarn build
