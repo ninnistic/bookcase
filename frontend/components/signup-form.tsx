@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input";
 
 import { StrapiErrors } from "./custom/strapi-errors";
 import { ZodErrors } from "./custom/zod-errors";
+import { SubmitButton } from "./submit-button";
 
 const INITIAL_STATE = {
   data: null,
@@ -109,7 +110,11 @@ export function SignUpForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Sign Up</Button>
+        <SubmitButton
+          className="w-full"
+          text="Sign Up"
+          loadingText="Loading..."
+        />
         <StrapiErrors error={formState?.strapiErrors} />
       </form>
     </Form>
