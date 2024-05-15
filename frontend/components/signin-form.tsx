@@ -1,9 +1,11 @@
 "use client";
 
+import { useFormState } from "react-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
+import { loginUserAction } from "@/app/actions/auth-actions";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,6 +17,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import { StrapiErrors } from "./custom/strapi-errors";
+import { ZodErrors } from "./custom/zod-errors";
+import { SubmitButton } from "./submit-button";
+
+const INITIAL_STATE = {
+  zodErrors: null,
+  strapiErrors: null,
+  data: null,
+  message: null,
+};
 const formSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address",
@@ -23,6 +35,8 @@ const formSchema = z.object({
 });
 
 export function SignInForm() {
+  const [formState, formAction] = useFormState(loginUserAction, INITIAL_STATE);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,13 +44,10 @@ export function SignInForm() {
       password: "",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form action={formAction} className="space-y-8">
         <FormField
           control={form.control}
           name="email"
@@ -50,6 +61,7 @@ export function SignInForm() {
                   {...field}
                 />
               </FormControl>
+              <ZodErrors error={formState?.zodErrors?.email} />
               <FormMessage />
             </FormItem>
           )}
@@ -63,11 +75,13 @@ export function SignInForm() {
               <FormControl>
                 <Input type="password" placeholder="Password" {...field} />
               </FormControl>
+              <ZodErrors error={formState?.zodErrors?.password} />
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Sign In</Button>
+        <SubmitButton className="w-full" text="Sign In" loadingText="Loading" />
+        <StrapiErrors error={formState?.strapiErrors} />
       </form>
     </Form>
   );

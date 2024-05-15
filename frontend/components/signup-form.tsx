@@ -53,17 +53,9 @@ export function SignUpForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof schemaRegister>) {
-    console.log(values);
-  }
-
   return (
     <Form {...form}>
-      <form
-        action={formAction}
-        // onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8"
-      >
+      <form action={formAction} className="space-y-8">
         <FormField
           control={form.control}
           name="username"
