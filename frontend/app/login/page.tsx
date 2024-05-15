@@ -1,7 +1,6 @@
 import { Input } from "@/components/ui/input";
-import Image from "next/image";
 
-export default function Home() {
+export default function LoginPage() {
   return (
     <main className="flex flex-col items-center justify-between p-24">
       <Input type="email" placeholder="Email" />
