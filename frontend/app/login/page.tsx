@@ -1,10 +1,24 @@
-import { Input } from "@/components/ui/input";
+import { LoginForm } from "@/components/login-form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function LoginPage() {
   return (
     <main className="flex flex-col items-center justify-between p-24">
-      <Input type="email" placeholder="Email" />
-      <Input type="password" placeholder="Password" />
+      <Card>
+        <CardHeader>
+          <CardTitle>Sign In to Create a Bookcase</CardTitle>
+          <CardDescription>Make your own Bookcase!</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <LoginForm />
+        </CardContent>
+      </Card>
     </main>
   );
 }
