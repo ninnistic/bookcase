@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import { StrapiErrors } from "./custom/strapi-errors";
 import { ZodErrors } from "./custom/zod-errors";
 
 const INITIAL_STATE = {
@@ -109,6 +110,7 @@ export function SignUpForm() {
           )}
         />
         <Button type="submit">Sign Up</Button>
+        <StrapiErrors error={formState?.strapiErrors} />
       </form>
     </Form>
   );
