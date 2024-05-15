@@ -18,8 +18,8 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { StrapiErrors } from "./custom/strapi-errors";
+import { SubmitButton } from "./custom/submit-button";
 import { ZodErrors } from "./custom/zod-errors";
-import { SubmitButton } from "./submit-button";
 
 const INITIAL_STATE = {
   zodErrors: null,
@@ -28,7 +28,7 @@ const INITIAL_STATE = {
   message: null,
 };
 const formSchema = z.object({
-  email: z.string().email({
+  identifier: z.string().email({
     message: "Please enter a valid email address",
   }),
   password: z.string().min(8).max(20),
@@ -38,9 +38,8 @@ export function SignInForm() {
   const [formState, formAction] = useFormState(loginUserAction, INITIAL_STATE);
 
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      identifier: "",
       password: "",
     },
   });
@@ -50,7 +49,7 @@ export function SignInForm() {
       <form action={formAction} className="space-y-8">
         <FormField
           control={form.control}
-          name="email"
+          name="identifier"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
@@ -61,7 +60,7 @@ export function SignInForm() {
                   {...field}
                 />
               </FormControl>
-              <ZodErrors error={formState?.zodErrors?.email} />
+              <ZodErrors error={formState?.zodErrors?.identifier} />
               <FormMessage />
             </FormItem>
           )}

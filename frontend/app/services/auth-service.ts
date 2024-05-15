@@ -7,7 +7,7 @@ interface RegisterUserProps {
 }
 
 interface LoginUserProps {
-  email: string;
+  identifier: string;
   password: string;
 }
 

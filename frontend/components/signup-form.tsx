@@ -18,8 +18,8 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { StrapiErrors } from "./custom/strapi-errors";
+import { SubmitButton } from "./custom/submit-button";
 import { ZodErrors } from "./custom/zod-errors";
-import { SubmitButton } from "./submit-button";
 
 const INITIAL_STATE = {
   data: null,

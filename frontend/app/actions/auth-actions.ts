@@ -68,9 +68,14 @@ export async function registerUserAction(prevState: any, formData: FormData) {
 }
 
 const schemaLogin = z.object({
-  email: z.string().email({
-    message: "Please enter a valid email address",
-  }),
+  identifier: z
+    .string()
+    .min(3, {
+      message: "Identifier must have at least 3 or more characters",
+    })
+    .max(20, {
+      message: "Please enter a valid username or email address",
+    }),
   password: z
     .string()
     .min(8, {
@@ -83,7 +88,7 @@ const schemaLogin = z.object({
 
 export async function loginUserAction(prevState: any, formData: FormData) {
   const validatedFields = schemaLogin.safeParse({
-    email: formData.get("email"),
+    identifier: formData.get("identifier"),
     password: formData.get("password"),
   });
 
@@ -116,7 +121,6 @@ export async function loginUserAction(prevState: any, formData: FormData) {
   }
 
   cookies().set("jwt", responseData.jwt, config);
-
   redirect("/dashboard");
 }
 
