@@ -16,8 +16,10 @@ import {
 import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
+  email: z.string().email({
+    message: "Please enter a valid email address",
+  }),
+  password: z.string().min(8).max(20),
 });
 
 export function SignInForm() {
