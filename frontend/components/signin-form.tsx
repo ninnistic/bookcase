@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { schemaLogin } from "@/lib/signin-shared";
 
 import { StrapiErrors } from "./custom/strapi-errors";
 import { SubmitButton } from "./custom/submit-button";
@@ -27,17 +28,11 @@ const INITIAL_STATE = {
   data: null,
   message: null,
 };
-const formSchema = z.object({
-  identifier: z.string().email({
-    message: "Please enter a valid email address",
-  }),
-  password: z.string().min(8).max(20),
-});
 
 export function SignInForm() {
   const [formState, formAction] = useFormState(loginUserAction, INITIAL_STATE);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<z.infer<typeof schemaLogin>>({
     defaultValues: {
       identifier: "",
       password: "",

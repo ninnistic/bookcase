@@ -2,7 +2,10 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { z } from "zod";
+
+import { schemaLogin } from "@/lib/signin-shared";
+import { SignupState } from "@/lib/signup-shared";
+import { schemaRegister } from "@/lib/signup-shared";
 
 import { registerUserService } from "../services/auth-service";
 import { loginUserService } from "../services/auth-service";
@@ -15,19 +18,10 @@ const config = {
   secure: process.env.NODE_ENV === "production",
 };
 
-const schemaRegister = z.object({
-  username: z.string().min(3).max(10, {
-    message: "Username must be between 3 and 10 characters",
-  }),
-  password: z.string().min(8).max(20, {
-    message: "Password must be between 8 and 20 characters",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address",
-  }),
-});
-
-export async function registerUserAction(prevState: any, formData: FormData) {
+export async function registerUserAction(
+  prevState: SignupState,
+  formData: FormData
+) {
   const validatedFields = schemaRegister.safeParse({
     username: formData.get("username"),
     password: formData.get("password"),
@@ -66,25 +60,6 @@ export async function registerUserAction(prevState: any, formData: FormData) {
   cookies().set("jwt", responseData.jwt, config);
   redirect("/dashboard");
 }
-
-const schemaLogin = z.object({
-  identifier: z
-    .string()
-    .min(3, {
-      message: "Identifier must have at least 3 or more characters",
-    })
-    .max(20, {
-      message: "Please enter a valid username or email address",
-    }),
-  password: z
-    .string()
-    .min(8, {
-      message: "Password must have at least 6 or more characters",
-    })
-    .max(20, {
-      message: "Password must be between 6 and 100 characters",
-    }),
-});
 
 export async function loginUserAction(prevState: any, formData: FormData) {
   const validatedFields = schemaLogin.safeParse({

@@ -16,26 +16,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { schemaRegister } from "@/lib/signup-shared";
+import { SignupState } from "@/lib/signup-shared";
 
 import { StrapiErrors } from "./custom/strapi-errors";
 import { SubmitButton } from "./custom/submit-button";
 import { ZodErrors } from "./custom/zod-errors";
 
-const INITIAL_STATE = {
+const INITIAL_STATE: SignupState = {
+  zodErrors: null,
+  strapiErrors: null,
   data: null,
+  message: null,
 };
-
-const schemaRegister = z.object({
-  username: z.string().min(3).max(10, {
-    message: "Username must be between 3 and 10 characters",
-  }),
-  password: z.string().min(8).max(20, {
-    message: "Password must be between 8 and 20 characters",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address",
-  }),
-});
 
 export function SignUpForm() {
   const [formState, formAction] = useFormState(
