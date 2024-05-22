@@ -15,6 +15,7 @@ export async function getUserMeLoader() {
   url.search = query;
 
   const authToken = await getAuthToken();
+  // no token
   if (!authToken) return { ok: false, data: null, error: null };
 
   try {
@@ -27,10 +28,12 @@ export async function getUserMeLoader() {
       cache: "no-cache",
     });
     const data = await response.json();
+    // invalid token or expired token
     if (data.error) return { ok: false, data: null, error: data.error };
     return { ok: true, data: data, error: null };
   } catch (error) {
     console.log(error);
+    // network error
     return { ok: false, data: null, error: error };
   }
 }

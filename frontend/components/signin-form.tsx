@@ -2,11 +2,9 @@
 
 import { useFormState } from "react-dom";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { loginUserAction } from "@/app/actions/auth-actions";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -49,11 +47,7 @@ export function SignInForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input
-                  type="email"
-                  placeholder="somebody@example.com"
-                  {...field}
-                />
+                <Input placeholder="Username or Email" {...field} />
               </FormControl>
               <ZodErrors error={formState?.zodErrors?.identifier} />
               <FormMessage />

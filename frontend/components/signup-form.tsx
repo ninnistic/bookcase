@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 import { registerUserAction } from "@/app/actions/auth-actions";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
