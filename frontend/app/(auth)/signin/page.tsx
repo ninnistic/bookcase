@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { SignInForm } from "@/components/signin-form";
+import { SignInForm } from "@/components/custom/signin-form";
 import {
   Card,
   CardContent,

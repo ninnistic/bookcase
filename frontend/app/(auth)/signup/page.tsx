@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { SignUpForm } from "@/components/signup-form";
+import { SignUpForm } from "@/components/custom/signup-form";
 import {
   Card,
   CardContent,

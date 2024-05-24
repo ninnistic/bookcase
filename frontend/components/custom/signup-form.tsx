@@ -18,9 +18,9 @@ import { Input } from "@/components/ui/input";
 import { schemaRegister } from "@/lib/signup-shared";
 import { SignupState } from "@/lib/signup-shared";
 
-import { StrapiErrors } from "./custom/strapi-errors";
-import { SubmitButton } from "./custom/submit-button";
-import { ZodErrors } from "./custom/zod-errors";
+import { StrapiErrors } from "./strapi-errors";
+import { SubmitButton } from "./submit-button";
+import { ZodErrors } from "./zod-errors";
 
 const INITIAL_STATE: SignupState = {
   zodErrors: null,
